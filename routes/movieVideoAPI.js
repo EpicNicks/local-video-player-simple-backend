@@ -8,7 +8,7 @@ router.get("/", function(req, res, next){
     const files = fs.readdirSync(metaPath);
     const title = req.query.title;
     let filepath = null;
-    for (const file of files){
+    for (const file of files.filter(f => [".seriesn", ".movien"].includes(path.extname(f)))){
         let object = JSON.parse(fs.readFileSync(path.resolve(metaPath, file)).toString());
         if (object.title === title){
             filepath = object.path

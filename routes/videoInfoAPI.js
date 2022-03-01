@@ -9,7 +9,7 @@ router.get("/", function(req, res, next){
     const metaPath = path.resolve(__dirname, "../public/meta-files/meta/");
     const title = req.query.title;
     const file = (files => {
-        for (const file of files){
+        for (const file of files.filter(f => [".seriesn", ".movien"].includes(path.extname(f)))){
             const obj = JSON.parse(fs.readFileSync(path.resolve(metaPath, file)).toString());
             if (obj.title === title){
                 return obj;

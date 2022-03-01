@@ -11,7 +11,7 @@ router.get("/", function(req, res, next){
     const episode = req.query.episode;
 
     let filepath = null;
-    for (const file of files){
+    for (const file of files.filter(f => [".seriesn", ".movien"].includes(path.extname(f)))){
         let object = JSON.parse(fs.readFileSync(path.resolve(metaPath, file)).toString());
         if (object.title === title){
             filepath = object.seasons[parseInt(season) - 1].episodes[parseInt(episode) - 1].path
